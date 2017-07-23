@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ITInventory.Models.Entities.DeviceSpecifications>
+<h4>Device Specifications</h4>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Device.DeviceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceTypes.DeviceTypeValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecificationTitle.SpecificationValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecificationValue)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Device.DeviceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeviceTypes.DeviceTypeValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecificationTitle.SpecificationValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecificationValue)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DeviceSpecificationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DeviceSpecificationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DeviceSpecificationID })
+        </td>
+    </tr>
+}
+
+</table>

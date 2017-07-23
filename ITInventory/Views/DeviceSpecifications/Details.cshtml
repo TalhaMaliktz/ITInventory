@@ -1,0 +1,44 @@
+﻿@model ITInventory.Models.Entities.DeviceSpecifications
+
+<div>
+    <h4>DeviceSpecifications</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Device.DeviceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Device.DeviceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeviceTypes.DeviceTypeValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeviceTypes.DeviceTypeValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationTitle.SpecificationValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecificationTitle.SpecificationValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecificationValue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DeviceSpecificationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

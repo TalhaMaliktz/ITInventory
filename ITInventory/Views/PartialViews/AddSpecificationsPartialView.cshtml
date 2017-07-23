@@ -1,0 +1,47 @@
+﻿@model ITInventory.Models.Entities.Specifications
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Specifications</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeviceTypeFKID, "Device Type", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-10">
+                @Html.DropDownList("DeviceTypeFKID", null, htmlAttributes: new { @id = "DeviceTypeFKIDD", @onchange = "FillSpecification()", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DeviceTypeFKID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SpecificationValue, "Value", htmlAttributes: new { @class = "control-label col-md-3", style = "float:left;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SpecificationValue, new { htmlAttributes = new { id = "SpecificationValuetxt", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SpecificationValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Create" style="margin-left:8.8%;margin-top:2%" class="btn btn-default" onclick="AddSpecification('@Url.Action("CreateSpecification", "Devices")'); return false;" />
+                <script type='text/javascript'>
+                    function AddSpecification(target) {
+                        $.post(target, {SpecificationValue: $('#SpecificationValuetxt').val(),DeviceTypeFKID: $('#DeviceTypeFKIDD option:selected').val() });
+                        alert("New Device Has been Added.");
+                    }
+                    
+                </script>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

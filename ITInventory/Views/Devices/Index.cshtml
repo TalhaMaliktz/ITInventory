@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ITInventory.Models.Entities.Device>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+<div class="container">
+    <span><label>Device Name:</label>
+     @Html.TextBox("id")
+    <input type="submit" name="name" value="Search" class="btn" />
+    </span>
+</div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Locations.LocationTypeValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceTypes.DeviceTypeValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MACAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Locations.LocationTypeValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeviceTypes.DeviceTypeValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeviceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EntryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeviceStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MACAddress)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DeviceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DeviceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DeviceID })
+        </td>
+    </tr>
+}
+
+</table>
+
