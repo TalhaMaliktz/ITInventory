@@ -1,0 +1,90 @@
+﻿@model ITInventory.Models.Entities.DeviceSpecifications
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DeviceSpecifications</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeviceTypeFKID, "Device Name", htmlAttributes: new { @class = "control-label col-md-5", style = "margin:0 0 0 -30px;" })
+            <div class="col-md-10">
+                @Html.DropDownList("DeviceFKID", null, htmlAttributes: new { @class = "form-control" , @id= "deviceNameFKID" })
+                @Html.ValidationMessageFor(model => model.DeviceTypeFKID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+             @Html.LabelFor(model => model.DeviceTypeFKID, "Device Type", htmlAttributes: new { @class = "control-label col-md-5", style = "margin:0 0 0 -37px;" })
+            <div class="col-md-10">
+                @Html.DropDownList("DeviceTypeFKID", null, "Select One" , htmlAttributes: new 
+                { @class = "form-control", @id = "devicetypeDDD", @onchange = "FillSpecification()" })
+                @Html.ValidationMessageFor(model => model.DeviceTypeFKID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SpecificationFKID, "Specification Type", htmlAttributes: new { @class = "control-label col-md-6", style = "margin:0 0 0 -20px;" })
+            <div class="col-md-10">
+                <span>
+                    @Html.DropDownList("SpecificationFKID", null, htmlAttributes: new {@id= "SpecificationFKIDDD", @class = "form-control" })
+                    <img id="Specificationplus" src="~/Content/Images/Plus.png" style="margin-left:19em; margin-top:-4em;" />
+                </span>
+                @Html.ValidationMessageFor(model => model.SpecificationFKID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SpecificationValue, "Specification Value", htmlAttributes: new { @class = "control-label col-md-6", style = "margin:0 0 0 -15px;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SpecificationValue, new { htmlAttributes = new { @class = "form-control", @id="specvalue" } })
+                @Html.ValidationMessageFor(model => model.SpecificationValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="margin-left:-0.2%">
+                <input type="submit" value="Create" class="btn btn-default" onclick="AddDeviceSpecification('@Url.Action("CreateDeviceSpecification", "Devices")'); return false;" />
+                <script type='text/javascript'>
+                    function AddDeviceSpecification(target) {
+                        $.post(
+                            target,
+                            {
+                                DeviceFKID: $('#deviceNameFKID').val(),
+                                DeviceTypeFKID: $('#devicetypeDDD').val(),
+                                SpecificationFKID: $('#SpecificationFKIDDD').val(),
+                                SpecificationValue: $('#specvalue').val(),
+                               });
+                       alert("New Specification Has been Added.");
+                    }
+
+                </script>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    function FillSpecification() {
+        var typeId = parseInt($('#devicetypeDDD').val());
+        $.ajax({
+            url: 'FillSpecification',
+            type: "GET",
+            dataType: "JSON",
+            data: { id: typeId },
+            success: function (specifications) {
+                $("#SpecificationFKIDDD").html(""); // clear before appending new list 
+                $.each(specifications, function (i, spec) {
+                    $("#SpecificationFKIDDD").append(
+                        $('<option></option>').val(spec.SpecificationID).html(spec.SpecificationValue));
+                });
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

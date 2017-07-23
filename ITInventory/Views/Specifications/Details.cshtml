@@ -1,0 +1,28 @@
+﻿@model ITInventory.Models.Entities.Specifications
+
+<div>
+    <h4>Specifications</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DeviceTypes.DeviceTypeValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeviceTypes.DeviceTypeValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecificationValue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SpecificationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

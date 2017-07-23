@@ -1,0 +1,26 @@
+﻿@model ITInventory.Models.Entities.DeviceType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DeviceType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DeviceTypeValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeviceTypeValue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DeviceTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

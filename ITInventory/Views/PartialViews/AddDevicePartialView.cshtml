@@ -1,0 +1,97 @@
+﻿@model ITInventory.Models.Entities.Device
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    
+    <div class="form-horizontal">
+        <h4>Device</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeviceName, "Device Name", htmlAttributes: new { @class = "control-label col-md-5", style="margin:0 0 0 -30px;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DeviceName, new { htmlAttributes = new { @class = "form-control", @id = "devicenametxt" } })
+                @Html.ValidationMessageFor(model => model.DeviceName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeviceTypeFKID, "Device Type", htmlAttributes: new { @class = "control-label col-md-5", style = "margin:0 0 0 -40px;" })
+            <div class="col-md-10">
+                <span>
+                    @Html.DropDownList("DeviceTypeFKID", null, "Select One", htmlAttributes: new { @class = "form-control" ,@id="devicetypeDD" })
+                    <img id="typeplus" src="~/Content/Images/Plus.png" style="margin-left:19em; margin-top:-4em;" />
+                </span>
+                    @Html.ValidationMessageFor(model => model.DeviceTypeFKID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocationFKID, "Location", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-10">
+               <span> @Html.DropDownList("LocationFKID", null, "Select One", htmlAttributes: new { @class = "form-control", @id = "locationDD" })
+                <img id="locationplus" src="~/Content/Images/Plus.png" style="margin-left:19em; margin-top:-4em;" /></span>
+                @Html.ValidationMessageFor(model => model.LocationFKID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EntryDate, "Entry Date", htmlAttributes: new { @class = "control-label col-md-4", style = "margin:0 0 0 -19px;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EntryDate, new { htmlAttributes = new { @class = "form-control date" ,@id= "entrydate" } })
+                @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssignDate, "Assigning Date", htmlAttributes: new { @class = "control-label col-md-5", style = "margin:0 0 0 -15px;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AssignDate, new { htmlAttributes = new { @class = "form-control date", @id = "assigndate" } })
+                @Html.ValidationMessageFor(model => model.AssignDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeviceStatus, "Device Status", htmlAttributes: new { @class = "control-label col-md-5", style = "margin:0 0 0 -25px;" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.DeviceStatus, "Select One", htmlAttributes: new { @class = "form-control", @id="devicestatusDD" })
+                @Html.ValidationMessageFor(model => model.DeviceStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MACAddress, "MAC Address" ,htmlAttributes: new { @class = "control-label col-md-5", style = "margin:0 0 0 -30px;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MACAddress, new { htmlAttributes = new { @class = "form-control macaddress" ,@id= "macaddress" } })
+                @Html.ValidationMessageFor(model => model.MACAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="margin-left:-0.020%;">
+                <input type="button" value="Create" style="margin-left:-0.8%;margin-top:2%" class="btn btn-default" onclick="AddDevice('@Url.Action("CreateDevice", "Devices")'); return false;" />
+                <script type='text/javascript'>
+                    function AddDevice(target) {
+                        $.post(
+                            target, 
+                            {
+                                DeviceName: $('#devicenametxt').val(),
+                                DeviceTypeFKID: $('#devicetypeDD option:selected').val(),
+                                LocationFKID: $('#locationDD option:selected').val()  ,
+                                EntryDate: $('#entrydate').val() ,AssignDate: $('#assigndate').val() ,
+                                DeviceStatus: $('#devicestatusDD option:selected').val() ,
+                                MACAddress:$('#macaddress').val() });
+                       alert("New Device Has been Added.");
+                    }
+                    
+                </script>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
